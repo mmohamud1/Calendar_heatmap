@@ -1,6 +1,6 @@
 anychart.onDocumentReady(function() {
     anychart.data.loadJsonFile(
-      'https://cdn.anychart.com/samples/calendar-chart/github-contributions/data.json',
+      'data.json',
       function(data) {
         var dataset = anychart.data.set(data);
         var mapping = dataset.mapAs({
@@ -9,7 +9,7 @@ anychart.onDocumentReady(function() {
         });
         var chart = anychart.calendar(mapping);
 
-        chart.background('#22282D');
+        chart.background('#f3f4f6');
 
         chart.months()
           .stroke(false)
@@ -19,7 +19,7 @@ anychart.onDocumentReady(function() {
           .spacing(5)
           .stroke(false)
           .noDataStroke(false)
-          .noDataFill('#2d333b')
+          .noDataFill('#e0e0e0')
           .noDataHatchFill(false);
 
         chart.colorRange(false);
