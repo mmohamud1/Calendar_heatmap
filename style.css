@@ -3,3 +3,12 @@ html, body, #container {
     margin: 0;
     padding: 0;
 }
+
+.anychart-tooltip table {
+    text-align: center;
+    font-size: 10px;
+}
+
+.anychart-tooltip td {
+    padding: 0 10px;
+}
