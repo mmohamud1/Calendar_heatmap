@@ -5,7 +5,7 @@ anychart.onDocumentReady(function() {
         var dataset = anychart.data.set(data);
         var mapping = dataset.mapAs({
           x: 'date',
-          value: 'level'
+          value: 'count'
         });
         var chart = anychart.calendar(mapping);
 
@@ -22,14 +22,16 @@ anychart.onDocumentReady(function() {
           .noDataFill('#e0e0e0')
           .noDataHatchFill(false);
 
-        chart.colorRange(false);
+        chart.colorRange(true);
 
         var customColorScale = anychart.scales.ordinalColor();
         customColorScale.ranges([
-          {equal: 1, color: '#0D4428'},
-          {equal: 2, color: '#006D31'},
-          {equal: 3, color: '#37AB4B'},
-          {equal: 4, color: '#39D353'}
+          {less: 2, color: '#23d684'},
+          {from: 2,to: 5, color: '#b4d73b'},
+          {from: 5,to: 7, color: '#d2c21a'},
+          {from: 7,to: 10, color: '#f08b1c'},
+          {from: 10,to: 13, color: '#f06b2e'},
+          {greater: 13, color: '#e84a40'}
         ]);
 
         // Set color scale.
