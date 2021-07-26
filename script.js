@@ -38,7 +38,8 @@ anychart.onDocumentReady(function() {
         chart.colorScale(customColorScale);
 
         chart.tooltip()
-          .format('{%count} contributions');
+            .useHtml(true)
+            .format(tooltipFormatter);
 
         chart.listen('chartDraw', function() {
           document.getElementById('container').style.height = chart.getActualHeight() + 'px';
@@ -48,4 +49,29 @@ anychart.onDocumentReady(function() {
         chart.draw();
       }
     );
-  });
+});
+
+function tooltipFormatter(ctx) {
+    var events = ctx.getData('events');
+    var tooltip = document.createElement('div');
+    var table = document.createElement('table');
+    var thead = table.createTHead();
+    thead.style.fontWeight = 'bold';
+    var tr = thead.insertRow();
+    var cell = tr.insertCell();
+    cell.textContent = 'Time';
+    cell = tr.insertCell();
+    cell.textContent = 'Event';
+    cell = tr.insertCell();
+    cell.textContent = 'Volatility Level';
+    var tbody = table.createTBody();
+    for (var i = 0; i < events.length; i++) {
+      var row = tbody.insertRow();
+      Object.values(events[i]).forEach(function(value) {
+        cell = row.insertCell();
+        cell.textContent = value;
+      });
+    }
+    tooltip.appendChild(table);
+    return tooltip.innerHTML;
+ }
