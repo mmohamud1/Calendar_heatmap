@@ -16,55 +16,10 @@
 </head>
 <body>
     <div class="container">
-		<div class="row my-4">
-			<div class="col">
-				<h2>jQuery - Calendar Heatmap</h2>
-				<hr>
-			</div>
-		</div>
+
 		<div class="row my-4">
 			<div class="col">
 				<div id="heatmap-1"></div>
-			</div>
-		</div>
-		<div class="row my-4">
-			<div class="col">
-				<div id="heatmap-2"></div>
-			</div>
-		</div>
-		<div class="row my-4">
-			<div class="col">
-				<div id="heatmap-3"></div>
-			</div>
-		</div>
-		<div class="row my-4">
-			<div class="col">
-				<div id="heatmap-4"></div>
-			</div>
-		</div>
-		<div class="row my-4">
-			<div class="col">
-				<div id="heatmap-5"></div>
-			</div>
-		</div>
-		<div class="row my-4">
-			<div class="col">
-				<h3>Update the above Calendar Heatmap</h3>
-				<button class="btn btn-secondary btn-sm" id="heatmap-5-random">Random Dates</button>
-				<button class="btn btn-secondary btn-sm" id="heatmap-5-empty">Empty</button>
-				<button class="btn btn-secondary btn-sm" id="heatmap-5-append">Append Dates</button>
-				<button class="btn btn-secondary btn-sm" id="heatmap-5-wkday">Toggle Weekdays</button>
-				<select class="form-control" style="display:inline; width:auto; margin-top:2px;" size="1" id="heatmap-5-coloring" >
-					<option value="standard">Default (standard)</option>
-					<option value="blue">Blues (blue)</option>
-					<option value="earth">Earth (earth)</option>
-					<option value="electric">Electric (electric)</option>
-					<option value="green">Greens (green)</option>
-					<option value="picknick">Picknick (picknick)</option>
-					<option value="red">Reds (red)</option>
-					<option value="teal">Teals (teal)</option>
-					<option value="viridis">Viridis (viridis)</option>
-				</select>
 			</div>
 		</div>
 	</div>
@@ -91,100 +46,7 @@
 			title: "Default Layout"
 		});
 
-		$("#heatmap-2").CalendarHeatmap(data, {
-			title: "Gradient \"red\", end one month from current",
-			lastMonth: moment().month(),
-			coloring: "red",
-			legend: {
-				minLabel: "Fewer"
-			},
-			labels: {
-				custom: {
-					monthLabels: "MMM"
-				}
-			}
-		});
-
-		$("#heatmap-3").CalendarHeatmap(data, {
-			title: "Gradient \"electric\", labels days and custom month labels, end one year from current, week starts on Sunday",
-			months: 5,
-			lastYear: moment().subtract(1,'years').year(),
-			coloring: "electric",
-			legend: {
-				align: "left",
-				minLabel: "Fewer"
-			},
-			weekStartDay: 0,
-			labels: {
-				days: true,
-				custom: {
-					monthLabels: "MMM 'YY"
-				}
-			},
-			tooltips:{
-				show: true
-			}
-		});
-
-		$("#heatmap-4").CalendarHeatmap( data, {
-			title: "Tile shape \"Circle\"",
-			tiles: {
-				shape: "circle"
-			}
-		});
-
-		$("#heatmap-5").CalendarHeatmap( [], {
-			title: "No Data"
-		});
-
-		$("#heatmap-5-random").on("click", function(){
-
-			var events = ( Math.random() * 200 ).toFixed(0);
-			var data = [];
-			for (var i = 0; i < events; i++ ) {
-				data.push({
-					count: parseInt( ( Math.random() * 200 ).toFixed(0) ),
-					date: randomDate( moment().subtract(1, 'year').subtract(5,'months').format('x'), moment().format('x') )
-				});
-			}
-
-			$("#heatmap-5").CalendarHeatmap( 'updateDates', data );
-		});
-
-		$("#heatmap-5-empty").on("click", function(){
-			$("#heatmap-5").CalendarHeatmap( 'updateDates', [] );
-		});
-
-		$("#heatmap-5-append").on("click", function(){
-			var events = ( Math.random() * 10 ).toFixed(0);
-			var data = [];
-			for (var i = 0; i < events; i++ ) {
-				data.push({
-					count: parseInt( ( Math.random() * 200 ).toFixed(0) ),
-					date: randomDate( moment().subtract(1, 'year').subtract(5,'months').format('x'), moment().format('x') )
-				});
-			}
-			$("#heatmap-5").CalendarHeatmap( 'appendDates', data );
-		});
-
-		$("#heatmap-5-wkday").on("click", function(){
-			var labels = $("#heatmap-5").CalendarHeatmap( 'getOptions' ).labels;
-			$("#heatmap-5").CalendarHeatmap( 'updateOptions', {
-				labels: {
-					days: (labels.days === true)? false : true
-				}
-			} );
-		});
-
-		$("#heatmap-5-coloring").on("change", function(){
-			$("#heatmap-5").CalendarHeatmap( 'updateOptions', {
-				coloring: $(this).val(),
-				legend: {
-					divider: " - "
-				}
-			} );
-		});
-
+		
     
     </script>
 </body>
