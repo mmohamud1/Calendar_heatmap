@@ -43,7 +43,14 @@
 		}
 
 		$("#heatmap-1").CalendarHeatmap(data, {
-			title: "Default Layout"
+			title: null,
+            months: 12,
+            weekStartDay: 1,
+            labels: {
+                days:true,
+                months: true
+            }
+
 		});
 
 		
