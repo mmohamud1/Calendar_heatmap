@@ -16,13 +16,13 @@ anychart.onDocumentReady(function() {
           .noDataStroke(false);
 
         chart.days()
-          .spacing(5)
+          .spacing(2)
           .stroke(false)
           .noDataStroke(false)
           .noDataFill('#e0e0e0')
           .noDataHatchFill(false);
 
-        chart.colorRange(true);
+        chart.colorRange(false);
 
         var customColorScale = anychart.scales.ordinalColor();
         customColorScale.ranges([
@@ -40,6 +40,11 @@ anychart.onDocumentReady(function() {
         chart.tooltip()
             .useHtml(true)
             .format(tooltipFormatter);
+
+        // add click functionality
+        chart.listen("click", function(e){
+          console.log(e)
+        });
 
         chart.listen('chartDraw', function() {
           document.getElementById('container').style.height = chart.getActualHeight() + 'px';

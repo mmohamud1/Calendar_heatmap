@@ -4,6 +4,10 @@ html, body, #container {
     padding: 0;
 }
 
+#container {
+    width: 60%;
+}
+
 .anychart-tooltip table {
     text-align: center;
     font-size: 10px;
