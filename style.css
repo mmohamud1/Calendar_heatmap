@@ -8,6 +8,10 @@ html, body, #container {
     width: 60%;
 }
 
+/* .anychart-tooltip-title {
+    text-align: center;
+} */
+
 .anychart-tooltip table {
     text-align: center;
     font-size: 10px;

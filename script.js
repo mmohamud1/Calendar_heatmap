@@ -37,14 +37,19 @@ anychart.onDocumentReady(function() {
         // Set color scale.
         chart.colorScale(customColorScale);
 
+        chart.tooltip().titleFormat("{%x}")
         chart.tooltip()
             .useHtml(true)
             .format(tooltipFormatter);
 
         // add click functionality
-        chart.listen("click", function(e){
+        chart.listen("pointClick", function(e){
           console.log(e)
         });
+        var interactivity = chart.interactivity();
+
+        // Set selection mode.
+        interactivity.selectionMode('single-select');
 
         chart.listen('chartDraw', function() {
           document.getElementById('container').style.height = chart.getActualHeight() + 'px';
