@@ -11,6 +11,7 @@
 <body>
 
     <div id="calendar"></div>
+    <div id="evidencetable"></div>
     
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" charset="utf-8"></script>
@@ -35,8 +36,9 @@
                     return projectDate;
                   }(),
                   'value':  3600,
-                  'Environment': 'Global',
-                  'Weighting': '100%'
+                  'result':  Math.floor(Math.random() * (100 - 0 + 1)) + 0,
+                  'environment': 'Global',
+                  'weighting': '100%'
                 }
               }),
               init: function () {

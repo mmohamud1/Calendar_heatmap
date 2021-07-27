@@ -12,7 +12,7 @@ var calendarHeatmap = {
     item_size: 10,
     label_padding: 40,
     max_block_height: 20,
-    transition_duration: 500,
+    transition_duration: 250,
     tooltip_width: 250,
     tooltip_padding: 15,
   },
@@ -147,6 +147,7 @@ var calendarHeatmap = {
   },
 
 
+
   /**
    * Draw the chart based on the current overview type
    */
@@ -181,6 +182,7 @@ var calendarHeatmap = {
 
     // Define array of years and total values
     var year_data = d3.timeYears(start, end).map(function(d) {
+
       var date = moment(d);
       return {
         'date': date,
@@ -197,6 +199,7 @@ var calendarHeatmap = {
                 if (!summary[d.summary[i].name]) {
                   summary[d.summary[i].name] = {
                     'value': d.summary[i].value,
+                    'result': d.summary[i].result
                   };
                 } else {
                   summary[d.summary[i].name].value += d.summary[i].value;
@@ -278,54 +281,21 @@ var calendarHeatmap = {
       .style('opacity', 0)
       .on('mouseover', function(d) {
         if (calendarHeatmap.in_transition) { return; }
+        console.log(d)
+        var totalEvidence = d.total/3600
+
 
         // Construct tooltip
         var tooltip_html = '';
-        tooltip_html += '<div><span><strong>Total time tracked:</strong></span>';
-
-        var sec = parseInt(d.total, 10);
-        var days = Math.floor(sec / 86400);
-        if (days > 0) {
-          tooltip_html += '<span>' + (days === 1 ? '1 day' : days + ' days') + '</span></div>';
-        }
-        var hours = Math.floor((sec - (days * 86400)) / 3600);
-        if (hours > 0) {
-          if (days > 0) {
-            tooltip_html += '<div><span></span><span>' + (hours === 1 ? '1 hour' : hours + ' hours') + '</span></div>';
-          } else {
-            tooltip_html += '<span>' + (hours === 1 ? '1 hour' : hours + ' hours') + '</span></div>';
-          }
-        }
-        var minutes = Math.floor((sec - (days * 86400) - (hours * 3600)) / 60);
-        if (minutes > 0) {
-          if (days > 0 || hours > 0) {
-            tooltip_html += '<div><span></span><span>' + (minutes === 1 ? '1 minute' : minutes + ' minutes') + '</span></div>';
-          } else {
-            tooltip_html += '<span>' + (minutes === 1 ? '1 minute' : minutes + ' minutes') + '</span></div>';
-          }
-        }
+        tooltip_html += '<div><span><strong>Total Evidence:</strong></span>';
+        tooltip_html += '<span>' +totalEvidence + '</span></div>';
         tooltip_html += '<br />';
 
         // Add summary to the tooltip
-        if (d.summary.length <= 5) {
-          for (var i = 0; i < d.summary.length; i++) {
+        for (var i = 0; i < d.summary.length; i++) {
             tooltip_html += '<div><span><strong>' + d.summary[i].name + '</strong></span>';
-            tooltip_html += '<span>' + calendarHeatmap.formatTime(d.summary[i].value) + '</span></div>';
-          };
-        } else {
-          for (var i = 0; i < 5; i++) {
-            tooltip_html += '<div><span><strong>' + d.summary[i].name + '</strong></span>';
-            tooltip_html += '<span>' + calendarHeatmap.formatTime(d.summary[i].value) + '</span></div>';
-          };
-          tooltip_html += '<br />';
-
-          var other_projects_sum = 0;
-          for (var i = 5; i < d.summary.length; i++) {
-            other_projects_sum = +d.summary[i].value;
-          };
-          tooltip_html += '<div><span><strong>Other:</strong></span>';
-          tooltip_html += '<span>' + calendarHeatmap.formatTime(other_projects_sum) + '</span></div>';
-        }
+            tooltip_html += '<span>' + d.summary[i].value/3600  + '</span></div>';
+        };
 
         // Calculate tooltip position
         var x = yearScale(d.date.year()) + calendarHeatmap.settings.tooltip_padding * 2;
@@ -557,14 +527,15 @@ var calendarHeatmap = {
         })();
 
         // Construct tooltip
+        console.log(d)
         var tooltip_html = '';
-        tooltip_html += '<div class="header"><strong>' + (d.total ? calendarHeatmap.formatTime(d.total) : 'No time') + ' tracked</strong></div>';
+        tooltip_html += '<div class="header"><strong>' + d.total/3600 + ' piece(s) of evidence</strong></div>';
         tooltip_html += '<div>on ' + moment(d.date).format('dddd, MMM Do YYYY') + '</div><br>';
 
         // Add summary to the tooltip
         for (var i = 0; i < d.summary.length; i++) {
           tooltip_html += '<div><span><strong>' + d.summary[i].name + '</strong></span>';
-          tooltip_html += '<span>' + calendarHeatmap.formatTime(d.summary[i].value) + '</span></div>';
+          tooltip_html += '<span>' + d.summary[i].value/3600 + '</span></div>';
         };
 
         // Calculate tooltip position
